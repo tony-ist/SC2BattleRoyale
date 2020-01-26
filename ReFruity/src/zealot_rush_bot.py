@@ -87,15 +87,14 @@ def main(unused_argv):
   try:
     while True:
       with sc2_env.SC2Env(
-          map_name="Simple64",
-          players=[sc2_env.Agent(sc2_env.Race.protoss),
-                   sc2_env.Bot(sc2_env.Race.protoss,
-                               sc2_env.Difficulty.easy)],
-          agent_interface_format=features.AgentInterfaceFormat(
-            action_space=actions.ActionSpace.RAW,
-            use_raw_units=True,
-            raw_resolution=64,
-          ),
+        realtime=True,
+        map_name="Simple64",
+        players=[sc2_env.Agent(sc2_env.Race.protoss),
+                 sc2_env.Bot(sc2_env.Race.protoss,
+                             sc2_env.Difficulty.easy)],
+        agent_interface_format=features.AgentInterfaceFormat(
+          action_space=actions.ActionSpace.FEATURES
+        ),
       ) as env:
         run_loop.run_loop([agent], env)
   except KeyboardInterrupt:
